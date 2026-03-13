@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BroZ Search</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+margin-top:150px;
+background:#ffffff;
+transition:0.4s;
+}
+
+.dark{
+background:#121212;
+color:white;
+}
+
+.logo{
+font-size:85px;
+font-weight:bold;
+}
+
+.logo span:nth-child(1){color:#4285F4;}
+.logo span:nth-child(2){color:#EA4335;}
+.logo span:nth-child(3){color:#FBBC05;}
+.logo span:nth-child(4){color:#34A853;}
+
+.search{
+width:550px;
+padding:13px;
+border-radius:25px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+padding:10px 18px;
+margin:8px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+background:#f2f2f2;
+}
+
+button:hover{
+background:#e0e0e0;
+}
+
+.top{
+position:absolute;
+top:20px;
+right:20px;
+}
+
+.clock{
+position:absolute;
+top:20px;
+left:20px;
+font-size:18px;
+}
+
+</style>
+
+<script>
+
+function darkMode(){
+document.body.classList.toggle("dark");
+}
+
+function voiceSearch(){
+var recognition = new webkitSpeechRecognition();
+recognition.onresult = function(event){
+document.getElementById("search").value = event.results[0][0].transcript;
+};
+recognition.start();
+}
+
+function updateClock(){
+var now = new Date();
+document.getElementById("clock").innerHTML = now.toLocaleTimeString();
+}
+
+setInterval(updateClock,1000);
+
+function searchImages(){
+var q=document.getElementById("search").value;
+window.location="https://www.google.com/search?tbm=isch&q="+q;
+}
+
+function searchYouTube(){
+var q=document.getElementById("search").value;
+window.location="https://www.youtube.com/results?search_query="+q;
+}
+
+function searchMaps(){
+var q=document.getElementById("search").value;
+window.location="https://www.google.com/maps/search/"+q;
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="clock" id="clock"></div>
+
+<div class="top">
+<button onclick="darkMode()">🌙</button>
+</div>
+
+<div class="logo">
+<span>B</span><span>r</span><span>o</span><span>Z</span>
+</div>
+
+<br>
+
+<form action="https://www.google.com/search" method="GET">
+
+<input class="search" id="search" name="q" placeholder="Search the web with BroZ">
+
+<br>
+
+<button type="submit">BroZ Search</button>
+<button type="button" onclick="voiceSearch()">🎤 Voice</button>
+
+</form>
+
+<br>
+
+<button onclick="searchImages()">Images</button>
+<button onclick="searchYouTube()">YouTube</button>
+<button onclick="searchMaps()">Maps</button>
+
+</body>
+</html>
